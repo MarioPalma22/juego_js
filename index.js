@@ -35,6 +35,7 @@ class Sprite {
 
 		this.color = color
 		this.isAttacking 
+		this.health = 100
 	}
 	draw() {
 		c.fillStyle = this.color;
@@ -170,6 +171,8 @@ function animate(){
 		}) && player.isAttacking){
 			player.isAttacking = false
 			console.log('ouchis');
+			enemy.health -= 20
+			document.getElementById('enemyHealth').style.width = enemy.health + '%'
 		}
 	
 
@@ -180,6 +183,8 @@ function animate(){
 		}) && enemy.isAttacking){
 			enemy.isAttacking = false
 			console.log('d20. El enemigo hace un ataque feroz, pierdes 800HP');
+			player.health -= 20
+			document.getElementById('playerHealth').style.width = enemy.health + '%'
 		}
 	
 	// COlision de pibes

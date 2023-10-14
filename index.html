@@ -3,12 +3,28 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="./index.css">
 	<title></title>
 </head>
 <body>
-	<canvas>
-		
-	</canvas>
+	<div class="main">
+		<div class="m">
+			<!-- Vida j1 -->
+			<div class="p1" >
+				<div class="j1" ></div>
+				<div class="p_e_h1" id="playerHealth"></div>
+			</div>
+			<!-- Tiempo de partida -->
+			<div class="timer" id="timer" > 100</div>
+
+			<!-- Vida de j2 -->
+			<div class="p2" >
+				<div class="j2" ></div>
+				<div class="p_e_h" id="enemyHealth"></div>
+			</div>
+		</div>
+		<canvas></canvas>
+	</div>
 </body>
 <script src="./index.js"></script>
 </html>

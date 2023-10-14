@@ -1,0 +1,67 @@
+*{
+    box-sizing: border-box;
+}
+.main{
+    position: relative;
+    display: inline-block;
+}
+.main .m{
+    width: 100%;
+    display: flex;
+    position: absolute;
+    align-items:center;
+    padding: 1.5rem;
+}
+.main .m .p1{
+    position: relative;
+    height: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    
+}
+.main .m .p1 .j1{
+background-color: purple;
+height: 30px;
+width: 100%;
+}
+
+.main .m .p1 .p_e_h1{
+position: absolute;
+background: blue;
+top: 0;
+right:0 ;
+bottom: 0;
+width: 100%;
+}
+
+.main .m .timer{
+    background-color: aqua;
+    height: 75px;
+    width: 100px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.main .m .p2{
+			position: relative;
+			height: 30px;
+			width: 100%;
+			
+}
+.main .m .p2 .j2{
+        background-color: purple;
+        height: 30px;
+        width: 100%;
+}
+
+.main .m .p2 .p_e_h{
+        position: absolute;
+        background: red;
+        width: 100%;
+        top: 0;
+        right:0 ;
+        left: 0;
+        bottom: 0;
+}
