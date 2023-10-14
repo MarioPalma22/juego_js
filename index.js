@@ -141,6 +141,36 @@ function rectangularCollision ({
 
 	)
 }
+
+function determineWinner({player, enemy ,timerID}) {
+	clearTimeout(timerID)
+	document.getElementById('tie').style.display = 'flex'
+	if (player.health === enemy.health){
+		document.getElementById('tie').innerHTML = 'EMPATE'
+	} else if (player.health > enemy.health){
+		document.getElementById('tie').innerHTML = 'JUGADOR 1 GANA'
+	} else if (player.health < enemy.health){
+		document.getElementById('tie').innerHTML = 'JUGADOR 2 GANA UN KILO DE POLLO'
+	}
+}
+
+
+let timer = 30
+
+let timerID
+
+function decreaseTimer(){
+	if (timer > 0){
+		timerID = setTimeout(decreaseTimer, 1000)
+		timer --
+		document.getElementById('timer').innerHTML = timer
+	}
+	if (timer === 0){
+		document.getElementById('tie').style.display = 'flex'
+		determineWinner({player, enemy, timerID})
+		}
+		}
+decreaseTimer()
 function animate(){
 	window.requestAnimationFrame(animate)
 	c.fillStyle = 'black'
@@ -184,10 +214,15 @@ function animate(){
 			enemy.isAttacking = false
 			console.log('d20. El enemigo hace un ataque feroz, pierdes 800HP');
 			player.health -= 20
-			document.getElementById('playerHealth').style.width = enemy.health + '%'
+			document.getElementById('playerHealth').style.width = player.health + '%'
 		}
 	
 	// COlision de pibes
+
+	//Terminacion de round segun la vida final
+	if (enemy.health <= 0 || player.health <= 0){
+		determineWinner({player, enemy, timerID})
+	}
 	  
 }
 animate()
