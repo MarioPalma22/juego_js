@@ -56,15 +56,32 @@ const player = new Fighter({
 		},
 		run:{
 			imageSrc: './assets/player/Run.png',
-			framesMax: 8,
-			image : new Image()
+			framesMax: 8,	
 		},
 		jump:{
 			imageSrc: './assets/player/Jump.png',
 			framesMax: 2,
-			image : new Image()
 		},
-
+		fall:{
+			imageSrc: './assets/player/Fall.png',
+			framesMax: 2,
+		},
+		attack1:{
+			imageSrc: './assets/player/Attack1.png',
+			framesMax: 6
+		},
+		takeHit:{
+			imageSrc: './assets/player/Take Hit.png',
+			framesMax: 4
+		},
+	},
+	attackBox:{
+		offset:{
+			x:80,
+			y:-20
+		},
+		width: 150,
+		height:150
 	}
 	
 })  
@@ -81,6 +98,47 @@ const enemy = new Fighter({
 	offset:{
 		x:-50,
 		y:0
+	},
+	imageSrc: './assets/player2/Idle.png',
+	framesMax: 4,
+	scale:2.4,
+	offset:{
+		x:215,
+		y:170
+	},
+	sprites:{
+		idle:{
+			imageSrc: './assets/player2/Idle.png',
+			framesMax: 4
+		},
+		run:{
+			imageSrc: './assets/player2/Run.png',
+			framesMax: 8,	
+		},
+		jump:{
+			imageSrc: './assets/player2/Jump.png',
+			framesMax: 2,
+		},
+		fall:{
+			imageSrc: './assets/player2/Fall.png',
+			framesMax: 2,
+		},
+		attack1:{
+			imageSrc: './assets/player2/Attack1.png',
+			framesMax: 4
+		},
+		takeHit:{
+			imageSrc: './assets/player2/TakeHit.png',
+			framesMax: 3
+		},
+	},
+	attackBox:{
+		offset:{
+			x:-165,
+			y:20
+		},
+		width: 170,
+		height:100
 	}
 }
 )
@@ -114,7 +172,7 @@ function animate(){
 	background.update()
 	shop.update()
 	player.update()
-	// enemy.update()
+	enemy.update()
 
 	player.velocity.x = 0
 	enemy.velocity.x = 0
@@ -133,14 +191,26 @@ function animate(){
 
 	if(player.velocity.y <0){
 		player.switchSprite('jump')
+	}else if(player.velocity.y > 0){
+		player.switchSprite('fall')
 	}
 
 	
 	//MOVIMIENTO J2
 	if(keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft'){
 		enemy.velocity.x = -3
+		enemy.switchSprite('run')	
 	}else if (keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight'){
 		enemy.velocity.x = 3
+		enemy.switchSprite('run')	
+	}else{
+		enemy.switchSprite('idle')
+	}
+
+	if(enemy.velocity.y <0){
+		enemy.switchSprite('jump')
+	}else if(enemy.velocity.y > 0){
+		enemy.switchSprite('fall')
 	}
 
 	// DETECTOR DE DAÑO - HITBOX
@@ -148,11 +218,14 @@ function animate(){
 		rectangularCollision({
 			rectangle1: player,
 			rectangle2: enemy
-		}) && player.isAttacking){
+		}) && player.isAttacking && player.frameCurrent === 4){
+			enemy.takeHit()
 			player.isAttacking = false
-			console.log('ouchis');
-			enemy.health -= 20
 			document.getElementById('enemyHealth').style.width = enemy.health + '%'
+		}
+
+		if (player.isAttacking && player.frameCurrent === 4){
+			player.isAttacking = false
 		}
 	
 
@@ -160,14 +233,18 @@ function animate(){
 		rectangularCollision({
 			rectangle1: enemy,
 			rectangle2: player
-		}) && enemy.isAttacking){
+		}) && enemy.isAttacking && enemy.frameCurrent === 2){
+			player.takeHit()
+			
 			enemy.isAttacking = false
-			console.log('d20. El enemigo hace un ataque feroz, pierdes 800HP');
-			player.health -= 20
+			
 			document.getElementById('playerHealth').style.width = player.health + '%'
 		}
+	if (enemy.isAttacking && enemy.frameCurrent === 2){
+		enemy.isAttacking = false
+	}
 	
-	// COlision de pibes
+	// COlision de pibes - Ahora con animacion
 
 	//Terminacion de round segun la vida final
 	if (enemy.health <= 0 || player.health <= 0){
