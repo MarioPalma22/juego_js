@@ -219,14 +219,11 @@ function animate(){
 			rectangle1: player,
 			rectangle2: enemy
 		}) && player.isAttacking && player.frameCurrent === 4){
-			enemy.takeHit()
+			enemy.health -= 20
 			player.isAttacking = false
 			document.getElementById('enemyHealth').style.width = enemy.health + '%'
 		}
 
-		if (player.isAttacking && player.frameCurrent === 4){
-			player.isAttacking = false
-		}
 	
 
 	if (
@@ -234,15 +231,13 @@ function animate(){
 			rectangle1: enemy,
 			rectangle2: player
 		}) && enemy.isAttacking && enemy.frameCurrent === 2){
-			player.takeHit()
+			player.health -= 20
 			
 			enemy.isAttacking = false
-			
 			document.getElementById('playerHealth').style.width = player.health + '%'
 		}
-	if (enemy.isAttacking && enemy.frameCurrent === 2){
-		enemy.isAttacking = false
-	}
+
+
 	
 	// COlision de pibes - Ahora con animacion
 

@@ -114,10 +114,10 @@ class Fighter extends Sprite {
 		this.attackBox.position.y = this.position.y + this.attackBox.offset.y
 
 		//LO QUE DIBUJA LOS HITBOX
-		// c.fillRect(this.attackBox.position.x, 
-		//this.attackBox.position.y, 
-		//this.attackBox.width,
-		// this.attackBox.height)
+		c.fillRect(this.attackBox.position.x, 
+		this.attackBox.position.y, 
+		this.attackBox.width,
+		this.attackBox.height)
 
 		this.position.x += this.velocity.x
 		this.position.y += this.velocity.y
@@ -129,17 +129,17 @@ class Fighter extends Sprite {
 		// console.log(this.position.y);
 	}
 	
-	takeHit(){
-			this.switchSprite('takeHit')
-			this.health -= 20
+	// takeHit(){
 			
-		}
+			
+			
+	// 	}
 	attack(){
 		this.switchSprite('attack1')
 		this.isAttacking = true
-		setTimeout(() =>{
+		setTimeout(() => {
 			this.isAttacking = false
-		}, 1000)
+		}, 6000)
 	}
 
 	switchSprite (sprite){
@@ -149,10 +149,10 @@ class Fighter extends Sprite {
 		return
 
 		//Cuando se recive daño:
-		if(this.image === this.sprites.takeHit.image &&
-		   this.frameCurrent < this.sprites.takeHit.framesMax -1
-		)
-		return
+		// if(this.image === this.sprites.takeHit.image &&
+		//    this.frameCurrent < this.sprites.takeHit.framesMax -1
+		// )
+		// return
 
 		switch (sprite){
 			case 'idle':
@@ -186,12 +186,12 @@ class Fighter extends Sprite {
 				this.framesMax = this.sprites.attack1.framesMax
 				this.frameCurrent = 0
 			}
-			case 'takeHit':
-				if(this.image !== this.sprites.takeHit.image){
-					this.image = this.sprites.takeHit.image
-					this.framesMax = this.sprites.takeHit.framesMax
-					this.frameCurrent = 0
-				}
+			// case 'takeHit':
+			// 	if(this.image !== this.sprites.takeHit.image){
+			// 		this.image = this.sprites.takeHit.image
+			// 		this.framesMax = this.sprites.takeHit.framesMax
+			// 		this.frameCurrent = 0
+			// 	}
 		break;
 		}
 	}
