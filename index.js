@@ -223,6 +223,9 @@ function animate(){
 			player.isAttacking = false
 			document.getElementById('enemyHealth').style.width = enemy.health + '%'
 		}
+		if(player.frameCurrent < 4){
+			player.isAttacking = false
+		}
 
 	
 
