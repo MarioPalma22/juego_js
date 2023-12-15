@@ -24,7 +24,6 @@ function determineWinner({player, enemy ,timerID}) {
 	}
 }
 
-
 let timer = 30
 
 let timerID
